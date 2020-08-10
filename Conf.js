@@ -5,18 +5,27 @@ exports.config = {
     framework: 'custom',
     frameworkPath: require.resolve('protractor-cucumber-framework'),
     capabilities: {
-        browserName: 'chrome'
+        browserName: 'chrome',
+        chromeOptions:{
+            args:[
+                "--headless"
+            ]
+        },
     },
-    specs: ['D:\\Swapnil Workspace\\TypescriptPractice\\CucumberFramework\\Features\\NumberOperations.feature'],
+    specs: ['./Features/*.feature'],
     seleniumAddress: 'http://localhost:4444/wd/hub',
     noGlobals: true,
+    
+        
+    
     cucumberOpts: {
         compiler: "ts:ts-node/register",
         strict: true,
        // format: ["pretty"],
-        require: ['D:\\Swapnil Workspace\\TypescriptPractice\\CucumberFramework\\Stepdefinitions\\Stepdef.ts',
-                    'D:\\Swapnil Workspace\\TypescriptPractice\\CucumberFramework\\Hooks\\hook.ts'
-                    ]
+        require: ['./Stepdefinitions/Stepdef.ts',
+                    './Hooks/hook.ts'
+                    ],
+        tag: ["@smoke"]
     },
     beforeLaunch: function () {
         require("ts-node").register({
